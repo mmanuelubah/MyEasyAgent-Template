@@ -194,7 +194,7 @@ export default function PropertyDetailPage() {
                         </div>
 
                         {/* Quick Stats */}
-                        <div className="flex gap-6 p-6 bg-white rounded-3xl border border-gray-100">
+                        <div className="grid grid-cols-2 sm:grid-cols-3 gap-4 sm:gap-6 p-6 bg-white rounded-3xl border border-gray-100">
                             <div className="flex items-center gap-3">
                                 <div className="w-12 h-12 bg-emerald-50 rounded-2xl flex items-center justify-center">
                                     <Bed className="w-6 h-6 text-emerald-600" />

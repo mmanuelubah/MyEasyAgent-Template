@@ -5,11 +5,11 @@ import Link from "next/link";
 
 export default function HomeViewSection() {
     return (
-        <section className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-20">
-            <div className="bg-white rounded-[3rem] overflow-hidden border border-gray-100 shadow-2xl shadow-emerald-900/5 relative">
-                <div className="grid grid-cols-1 lg:grid-cols-2">
+        <section className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-12 md:py-20">
+            <div className="bg-white rounded-[2rem] md:rounded-[3rem] overflow-hidden border border-gray-100 shadow-2xl shadow-emerald-900/5 relative">
+                <div className="grid grid-cols-1 md:grid-cols-2">
                     {/* Image Side */}
-                    <div className="relative h-[400px] lg:h-auto overflow-hidden">
+                    <div className="relative h-[300px] sm:h-[400px] md:h-auto overflow-hidden">
                         <img
                             src="https://images.unsplash.com/photo-1560518883-ce09059eeffa?auto=format&fit=crop&w=1200&q=80"
                             alt="Premium Real Estate Inspection"

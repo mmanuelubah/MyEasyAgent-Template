@@ -54,7 +54,7 @@ export default function NeighborhoodsSection() {
                 </Link>
             </div>
 
-            <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6 auto-rows-[250px]">
+            <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6 auto-rows-[200px] sm:auto-rows-[250px]">
                 {neighborhoods.map((area, idx) => (
                     <Link
                         key={idx}
