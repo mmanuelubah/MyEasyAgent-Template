@@ -1,72 +1,98 @@
 "use client";
 
+import { useState } from "react";
 import Link from "next/link";
-import { User, Building2, Home, ArrowRight } from "lucide-react";
+import { Mail, Lock, ArrowRight, Github } from "lucide-react";
+import useAuth from "@/hooks/useAuth";
+import RoleSelection from "@/components/auth/RoleSelection";
 
 export default function RegisterPage() {
+    const [step, setStep] = useState<"signup" | "role">("signup");
+    const [email, setEmail] = useState("");
+    const [password, setPassword] = useState("");
+    const { login } = useAuth();
+
+    const handleSignup = (e: React.FormEvent) => {
+        e.preventDefault();
+        // Mock signup
+        login(email);
+        setStep("role");
+    };
+
+    if (step === "role") {
+        return <RoleSelection />;
+    }
+
     return (
         <div className="min-h-screen bg-gradient-to-br from-emerald-50 via-white to-blue-50 flex items-center justify-center py-12 px-4">
-            <div className="max-w-5xl w-full">
-                <div className="text-center mb-12">
-                    <h1 className="text-5xl font-black text-gray-900 mb-4">Join MyEasyAgent</h1>
-                    <p className="text-xl text-gray-500">Choose how you want to get started</p>
+            <div className="max-w-md w-full bg-white rounded-[2.5rem] p-10 border-2 border-gray-100 shadow-2xl shadow-emerald-100/20">
+                <div className="text-center mb-10">
+                    <h1 className="text-4xl font-black text-gray-900 mb-2">Create Account</h1>
+                    <p className="text-gray-500">Join the smarter way to find properties</p>
                 </div>
 
-                <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
-                    {/* Client Registration */}
-                    <Link
-                        href="/register/client"
-                        className="group bg-white rounded-[2.5rem] p-10 border-2 border-gray-100 hover:border-emerald-500 hover:shadow-2xl hover:shadow-emerald-100/50 transition-all"
-                    >
-                        <div className="w-20 h-20 bg-blue-50 rounded-3xl flex items-center justify-center mb-6 group-hover:bg-blue-600 transition-all">
-                            <User className="w-10 h-10 text-blue-600 group-hover:text-white transition-all" />
+                <form onSubmit={handleSignup} className="space-y-6">
+                    <div>
+                        <label className="text-sm font-bold text-gray-700 block mb-2 uppercase tracking-widest">Email Address</label>
+                        <div className="relative">
+                            <Mail className="absolute left-4 top-1/2 -translate-y-1/2 w-5 h-5 text-gray-400" />
+                            <input
+                                type="email"
+                                required
+                                value={email}
+                                onChange={(e) => setEmail(e.target.value)}
+                                className="w-full bg-gray-50 border border-gray-100 py-4 pl-12 pr-4 rounded-2xl outline-none focus:border-emerald-500 transition-all font-medium"
+                                placeholder="name@example.com"
+                            />
                         </div>
-                        <h2 className="text-2xl font-black text-gray-900 mb-3">I'm Looking for a Home</h2>
-                        <p className="text-gray-500 mb-6">Find verified properties with HuntSmart Pass</p>
-                        <div className="flex items-center gap-2 text-emerald-600 font-bold group-hover:gap-4 transition-all">
-                            Get Started <ArrowRight className="w-5 h-5" />
-                        </div>
-                    </Link>
+                    </div>
 
-                    {/* Agent Registration */}
-                    <Link
-                        href="/register/agent"
-                        className="group bg-white rounded-[2.5rem] p-10 border-2 border-gray-100 hover:border-emerald-500 hover:shadow-2xl hover:shadow-emerald-100/50 transition-all"
-                    >
-                        <div className="w-20 h-20 bg-emerald-50 rounded-3xl flex items-center justify-center mb-6 group-hover:bg-emerald-600 transition-all">
-                            <Building2 className="w-10 h-10 text-emerald-600 group-hover:text-white transition-all" />
+                    <div>
+                        <label className="text-sm font-bold text-gray-700 block mb-2 uppercase tracking-widest">Password</label>
+                        <div className="relative">
+                            <Lock className="absolute left-4 top-1/2 -translate-y-1/2 w-5 h-5 text-gray-400" />
+                            <input
+                                type="password"
+                                required
+                                value={password}
+                                onChange={(e) => setPassword(e.target.value)}
+                                className="w-full bg-gray-50 border border-gray-100 py-4 pl-12 pr-4 rounded-2xl outline-none focus:border-emerald-500 transition-all font-medium"
+                                placeholder="••••••••"
+                            />
                         </div>
-                        <h2 className="text-2xl font-black text-gray-900 mb-3">I'm an Agent</h2>
-                        <p className="text-gray-500 mb-6">List properties and earn commissions</p>
-                        <div className="flex items-center gap-2 text-emerald-600 font-bold group-hover:gap-4 transition-all">
-                            Register Now <ArrowRight className="w-5 h-5" />
-                        </div>
-                    </Link>
+                    </div>
 
-                    {/* Landlord Registration */}
-                    <Link
-                        href="/register/landlord"
-                        className="group bg-white rounded-[2.5rem] p-10 border-2 border-gray-100 hover:border-emerald-500 hover:shadow-2xl hover:shadow-emerald-100/50 transition-all"
+                    <button
+                        type="submit"
+                        className="w-full bg-emerald-600 text-white py-4 rounded-2xl font-bold flex items-center justify-center gap-2 hover:bg-emerald-700 transition-all shadow-lg shadow-emerald-100"
                     >
-                        <div className="w-20 h-20 bg-amber-50 rounded-3xl flex items-center justify-center mb-6 group-hover:bg-amber-600 transition-all">
-                            <Home className="w-10 h-10 text-amber-600 group-hover:text-white transition-all" />
+                        Sign Up <ArrowRight className="w-5 h-5" />
+                    </button>
+                </form>
+
+                <div className="mt-8">
+                    <div className="relative flex items-center justify-center mb-8">
+                        <div className="absolute inset-0 flex items-center">
+                            <div className="w-full border-t border-gray-100"></div>
                         </div>
-                        <h2 className="text-2xl font-black text-gray-900 mb-3">I'm a Landlord</h2>
-                        <p className="text-gray-500 mb-6">List your property directly</p>
-                        <div className="flex items-center gap-2 text-emerald-600 font-bold group-hover:gap-4 transition-all">
-                            List Property <ArrowRight className="w-5 h-5" />
-                        </div>
-                    </Link>
+                        <span className="relative bg-white px-4 text-xs font-bold text-gray-400 uppercase tracking-widest">Or continue with</span>
+                    </div>
+
+                    <button
+                        onClick={() => handleSignup({ preventDefault: () => { } } as any)}
+                        className="w-full bg-white border border-gray-100 py-4 rounded-2xl font-bold flex items-center justify-center gap-3 hover:bg-gray-50 transition-all"
+                    >
+                        <img src="https://www.google.com/favicon.ico" className="w-5 h-5" />
+                        Google Account
+                    </button>
                 </div>
 
-                <div className="text-center mt-12">
-                    <p className="text-gray-500">
-                        Already have an account?{' '}
-                        <Link href="/login" className="text-emerald-600 font-bold hover:underline">
-                            Sign In
-                        </Link>
-                    </p>
-                </div>
+                <p className="text-center mt-10 text-gray-500 text-sm">
+                    Already have an account?{' '}
+                    <Link href="/login" className="text-emerald-600 font-bold hover:underline">
+                        Sign In
+                    </Link>
+                </p>
             </div>
         </div>
     );

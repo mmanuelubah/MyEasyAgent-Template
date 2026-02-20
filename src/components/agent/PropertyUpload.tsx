@@ -4,7 +4,7 @@ import { useState, useEffect } from "react";
 import {
     Upload, MapPin, Home, Info,
     CheckCircle2, AlertCircle, ShieldCheck,
-    ChevronRight, ArrowRight, X, User, Users,
+    ChevronRight, ArrowRight, ArrowLeft, X, User, Users,
     Building2, FileText, ImageIcon, Video, Lock
 } from "lucide-react";
 
@@ -91,52 +91,85 @@ export default function PropertyUpload() {
     const renderAgentType = () => (
         <div className="space-y-10 animate-in fade-in slide-in-from-right-4 duration-500">
             <div className="text-center">
-                <h3 className="text-2xl font-bold text-gray-900">Select Your Partnership Tier</h3>
-                <p className="text-sm text-gray-500 mt-2">Are you listing your own property or representing a client?</p>
+                <h3 className="text-3xl font-black text-gray-900 font-outfit">Select Your Partnership Tier</h3>
+                <p className="text-sm text-gray-500 mt-2 font-medium">Are you listing your own property or representing a client?</p>
             </div>
             <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
                 <button
                     onClick={() => { setAgentType('landlord'); nextStep('verification'); }}
-                    className="p-8 rounded-[2.5rem] border-2 border-gray-50 hover:border-emerald-500 hover:bg-emerald-50/30 transition-all text-left group"
+                    className="p-10 rounded-[2.5rem] border-2 border-gray-100 hover:border-emerald-500 hover:bg-emerald-50/30 transition-all text-left group"
                 >
                     <div className="w-14 h-14 bg-gray-50 rounded-2xl flex items-center justify-center text-gray-400 group-hover:bg-emerald-600 group-hover:text-white transition-all mb-4">
                         <User className="w-7 h-7" />
                     </div>
-                    <h4 className="font-bold text-xl text-gray-900">I am a Landlord</h4>
-                    <p className="text-sm text-gray-500 mt-2">List your own property directly to verified tenants.</p>
+                    <h4 className="font-bold text-xl text-gray-900">Landlord / Not a professional</h4>
+                    <p className="text-sm text-gray-500 mt-2 font-medium leading-relaxed">List your own property directly to verified tenants.</p>
                 </button>
                 <button
                     onClick={() => { setAgentType('agent'); nextStep('verification'); }}
-                    className="p-8 rounded-[2.5rem] border-2 border-gray-50 hover:border-emerald-500 hover:bg-emerald-50/30 transition-all text-left group"
+                    className="p-10 rounded-[2.5rem] border-2 border-gray-100 hover:border-emerald-500 hover:bg-emerald-50/30 transition-all text-left group"
                 >
                     <div className="w-14 h-14 bg-gray-50 rounded-2xl flex items-center justify-center text-gray-400 group-hover:bg-emerald-600 group-hover:text-white transition-all mb-4">
                         <Users className="w-7 h-7" />
                     </div>
                     <h4 className="font-bold text-xl text-gray-900">I am an Agent</h4>
-                    <p className="text-sm text-gray-500 mt-2">Manage multiple listings and earning mobilization fees.</p>
+                    <p className="text-sm text-gray-500 mt-2 font-medium leading-relaxed">Manage multiple listings and earning mobilization fees.</p>
                 </button>
             </div>
         </div>
     );
 
     const renderVerification = () => (
-        <div className="space-y-10 animate-in fade-in slide-in-from-right-4 duration-500">
-            <div className="text-center">
-                <h3 className="text-2xl font-bold text-gray-900">TrustShield Verification</h3>
-                <p className="text-sm text-gray-500 mt-2">Upload your identification to maintain our "Gold Verified" ecosystem.</p>
+        <div className="space-y-12 animate-in fade-in slide-in-from-right-4 duration-500 max-w-2xl mx-auto">
+            <div className="text-center space-y-2">
+                <h3 className="text-3xl font-black text-gray-900 font-outfit">Complete your listing verification</h3>
+                <p className="text-sm text-gray-500 font-medium">Please upload clear copies of the documents listed below. Your information is secure and only used for verification purposes.</p>
             </div>
-            <div className="bg-gray-50 border-2 border-dashed border-gray-200 rounded-[2.5rem] p-12 text-center space-y-4 hover:border-emerald-600/30 transition-all group cursor-pointer">
-                <div className="w-16 h-16 bg-white rounded-2xl flex items-center justify-center mx-auto text-gray-400 group-hover:text-emerald-600 shadow-sm">
-                    <Upload className="w-8 h-8" />
+
+            <div className="bg-white border border-gray-100 rounded-[2.5rem] p-8 shadow-sm space-y-4">
+                <div className="flex items-center justify-between p-6 bg-gray-50/50 rounded-3xl border border-gray-50 group hover:border-emerald-200 transition-all">
+                    <div className="flex items-center gap-5">
+                        <div className="w-14 h-14 bg-emerald-600 text-white rounded-2xl flex items-center justify-center shadow-lg shadow-emerald-100">
+                            <FileText className="w-6 h-6" />
+                        </div>
+                        <div>
+                            <p className="font-black text-gray-900">Identity document</p>
+                            <p className="text-[10px] text-gray-400 font-bold uppercase tracking-widest mt-1">National ID, Driver's License, International Passport, Voter's Card.</p>
+                        </div>
+                    </div>
+                    <button className="text-emerald-600 font-black text-sm hover:underline flex items-center gap-2">
+                        Upload
+                    </button>
                 </div>
-                <div>
-                    <p className="font-bold text-gray-900">Upload ID / LASRERA License</p>
-                    <p className="text-xs text-gray-400 mt-1">PDF, JPG, or PNG (Max 5MB)</p>
-                </div>
+
+                {agentType === 'agent' && (
+                    <div className="flex items-center justify-between p-6 bg-amber-50/30 rounded-3xl border border-amber-100 group hover:border-amber-300 transition-all animate-in fade-in slide-in-from-top-2 duration-500">
+                        <div className="flex items-center gap-5">
+                            <div className="w-14 h-14 bg-amber-600 text-white rounded-2xl flex items-center justify-center shadow-lg shadow-amber-100">
+                                <Building2 className="w-6 h-6" />
+                            </div>
+                            <div>
+                                <p className="font-black text-gray-900">CAC Document</p>
+                                <p className="text-[10px] text-gray-400 font-bold uppercase tracking-widest mt-1">Business Registration Certificate (Image or PDF).</p>
+                            </div>
+                        </div>
+                        <button className="text-amber-600 font-black text-sm hover:underline flex items-center gap-2">
+                            Upload
+                        </button>
+                    </div>
+                )}
             </div>
-            <div className="flex gap-4">
-                <button onClick={() => nextStep('agent-type')} className="px-8 py-4 rounded-2xl font-bold text-gray-500 hover:bg-gray-100 transition-all">Back</button>
-                <button onClick={() => nextStep('property-details')} className="flex-1 bg-emerald-600 text-white py-4 rounded-2xl font-bold hover:bg-emerald-700 transition-all shadow-lg shadow-emerald-100">Continue Upwards</button>
+
+            <div className="flex justify-between items-center pt-8">
+                <button onClick={() => nextStep('agent-type')} className="px-8 py-4 rounded-2xl font-bold text-gray-400 hover:text-gray-600 hover:bg-gray-100 transition-all flex items-center gap-2">
+                    <ArrowLeft className="w-5 h-5" /> Back
+                </button>
+                <button
+                    onClick={() => nextStep('property-details')}
+                    className="bg-emerald-600 text-white px-12 py-5 rounded-[2rem] font-bold hover:bg-emerald-700 transition-all shadow-xl shadow-emerald-100 flex items-center gap-3"
+                >
+                    Proceed <ArrowRight className="w-5 h-5" />
+                </button>
             </div>
         </div>
     );

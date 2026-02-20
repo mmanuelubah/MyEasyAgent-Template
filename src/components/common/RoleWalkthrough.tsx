@@ -1,7 +1,7 @@
 "use client";
 
 import { useState } from "react";
-import { Info, X, ChevronRight, ChevronLeft, MapPin, ShieldCheck, Banknote, Calendar, Clock, Crown } from "lucide-react";
+import { Info, X, ChevronRight, ChevronLeft, MapPin, ShieldCheck, Banknote, Calendar, Clock, Crown, CheckCircle2, Home, Eye, Lock } from "lucide-react";
 
 interface Step {
     title: string;
@@ -10,7 +10,7 @@ interface Step {
 }
 
 interface RoleWalkthroughProps {
-    role: "agent" | "client" | "landlord";
+    role: "agent" | "client";
     onClose: () => void;
 }
 
@@ -75,18 +75,6 @@ export default function RoleWalkthrough({ role, onClose }: RoleWalkthroughProps)
                 title: "Refund Process",
                 desc: "If an agent cancels, you receive 1 free inspection credit. You can also claim a ₦2,500 cash refund by providing your bank details via the 'Claim Refund' button.",
                 icon: <ShieldCheck className="w-8 h-8" />
-            }
-        ],
-        landlord: [
-            {
-                title: "Passive Management",
-                desc: "List your property and let our verified agents handle the heavy lifting while you monitor from here.",
-                icon: <Home className="w-8 h-8" />
-            },
-            {
-                title: "Inspection Oversight",
-                desc: "Track how many people have viewed your property and stay updated on inspection feedback.",
-                icon: <Eye className="w-8 h-8" />
             }
         ]
     };
@@ -164,4 +152,3 @@ export default function RoleWalkthrough({ role, onClose }: RoleWalkthroughProps)
     );
 }
 
-import { CheckCircle2, Home, Eye } from "lucide-react";

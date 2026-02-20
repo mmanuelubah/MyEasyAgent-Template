@@ -17,11 +17,12 @@ import VerificationForm from "@/components/agent/VerificationForm";
 import ChatSafety from "@/components/dashboard/ChatSafety";
 import SafetyBanner from "@/components/common/SafetyBanner";
 import RoleWalkthrough from "@/components/common/RoleWalkthrough";
+import AvailabilitySetter from "@/components/agent/AvailabilitySetter";
 
 export default function AgentDashboard() {
     const [showUpload, setShowUpload] = useState(false);
     const [showWalkthrough, setShowWalkthrough] = useState(false);
-    const [view, setView] = useState<'dashboard' | 'wallet' | 'messages' | 'verify'>('dashboard');
+    const [view, setView] = useState<'dashboard' | 'wallet' | 'messages' | 'verify' | 'availability'>('dashboard');
     const agentProperties = properties.filter(p => p.agent.name === 'Sarah Johnson');
 
     return (
@@ -90,6 +91,16 @@ export default function AgentDashboard() {
                             <ArrowRight className="w-4 h-4 rotate-180" /> Back to Dashboard
                         </button>
                         <VerificationForm />
+                    </div>
+                ) : view === 'availability' ? (
+                    <div className="max-w-4xl mx-auto">
+                        <button
+                            onClick={() => setView('dashboard')}
+                            className="mb-6 flex items-center gap-2 text-gray-500 hover:text-gray-900 font-bold text-sm"
+                        >
+                            <ArrowRight className="w-4 h-4 rotate-180" /> Back to Dashboard
+                        </button>
+                        <AvailabilitySetter />
                     </div>
                 ) : (
                     <div className="space-y-12">
@@ -164,6 +175,18 @@ export default function AgentDashboard() {
                                 <p className="text-xs text-red-500 mt-2 font-bold">0 Active Strikes</p>
                                 <div className="absolute top-4 right-4 bg-emerald-100 text-emerald-700 text-[10px] font-black px-2 py-1 rounded-full uppercase">Good Standing</div>
                             </div>
+
+                            {/* Availability Tile */}
+                            <button
+                                onClick={() => setView('availability')}
+                                className="aspect-square bg-emerald-900 rounded-[3rem] border border-emerald-800 shadow-xl hover:-translate-y-2 transition-all p-8 flex flex-col items-center justify-center text-center group text-white"
+                            >
+                                <div className="w-20 h-20 bg-white/10 text-white rounded-3xl flex items-center justify-center mb-6 group-hover:scale-110 transition-transform">
+                                    <Clock className="w-10 h-10" />
+                                </div>
+                                <h3 className="text-xl font-black">Availability</h3>
+                                <p className="text-xs text-emerald-300 mt-2">Set inspection hours</p>
+                            </button>
                         </div>
 
                         {/* Property Upload Overlay (if active) */}

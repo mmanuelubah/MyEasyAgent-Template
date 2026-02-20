@@ -236,26 +236,63 @@ export default function PropertyDetailPage() {
 
                         {/* Location & Street View (Strictly Gated) */}
                         <div className="space-y-6">
-                            <h2 className="text-2xl font-bold text-gray-900">Location & Environment</h2>
+                            <div className="flex items-center justify-between mb-4">
+                                <h2 className="text-2xl font-black text-gray-900 font-outfit">Property Location Interface</h2>
+                                <div className="flex items-center gap-2">
+                                    <span className="w-2 h-2 rounded-full bg-emerald-500 animate-pulse" />
+                                    <span className="text-[10px] font-black text-emerald-600 uppercase tracking-widest">Live Area Feed</span>
+                                </div>
+                            </div>
 
                             {/* Detailed Map (Always visible per Section 1.A) */}
-                            <div className="relative h-80 rounded-3xl overflow-hidden border border-gray-100">
-                                {property.coordinates ? (
-                                    <iframe
-                                        width="100%"
-                                        height="100%"
-                                        frameBorder="0"
-                                        scrolling="no"
-                                        marginHeight={0}
-                                        marginWidth={0}
-                                        src={`https://maps.google.com/maps?q=${property.coordinates.lat},${property.coordinates.lng}&z=15&output=embed`}
-                                        className="w-full h-full"
-                                    ></iframe>
-                                ) : (
-                                    <div className="w-full h-full bg-gray-100 flex items-center justify-center text-gray-400">
-                                        <p>Map data unavailable for this property.</p>
+                            <div className="relative group">
+                                <div className="absolute inset-0 bg-emerald-600/5 rounded-[2.5rem] blur-2xl group-hover:bg-emerald-600/10 transition-all duration-700" />
+                                <div className="relative h-[450px] rounded-[2.5rem] overflow-hidden border-2 border-white shadow-2xl shadow-emerald-100/20 bg-gray-100">
+                                    {/* Map Header Overlay */}
+                                    <div className="absolute top-6 left-6 right-6 z-10 flex justify-between items-start pointer-events-none">
+                                        <div className="bg-white/90 backdrop-blur-md px-5 py-3 rounded-2xl border border-gray-100 shadow-xl pointer-events-auto">
+                                            <p className="text-[10px] font-black text-gray-400 uppercase tracking-widest mb-1">Current Coordinates</p>
+                                            <p className="text-xs font-mono font-bold text-gray-900">
+                                                {property.coordinates?.lat.toFixed(4)}° N, {property.coordinates?.lng.toFixed(4)}° E
+                                            </p>
+                                        </div>
+                                        <div className="bg-emerald-900 text-white px-4 py-2 rounded-xl text-[10px] font-black uppercase tracking-widest shadow-lg pointer-events-auto">
+                                            Expert Listing Map
+                                        </div>
                                     </div>
-                                )}
+
+                                    {property.coordinates ? (
+                                        <iframe
+                                            width="100%"
+                                            height="100%"
+                                            frameBorder="0"
+                                            scrolling="no"
+                                            marginHeight={0}
+                                            marginWidth={0}
+                                            src={`https://maps.google.com/maps?q=${property.coordinates.lat},${property.coordinates.lng}&z=15&output=embed`}
+                                            className="w-full h-full grayscale-[0.2] contrast-[1.1] brightness-[1.05]"
+                                        ></iframe>
+                                    ) : (
+                                        <div className="w-full h-full bg-gray-100 flex items-center justify-center text-gray-400">
+                                            <p className="font-bold text-sm">Map data unavailable for this property.</p>
+                                        </div>
+                                    )}
+
+                                    {/* Bottom Controls Overlay */}
+                                    <div className="absolute bottom-6 left-6 right-6 z-10 pointer-events-none">
+                                        <div className="bg-black/80 backdrop-blur-md p-4 rounded-2xl border border-white/10 flex items-center justify-between pointer-events-auto">
+                                            <div className="flex items-center gap-3">
+                                                <div className="w-8 h-8 bg-emerald-500 rounded-lg flex items-center justify-center">
+                                                    <MapPin className="w-4 h-4 text-white" />
+                                                </div>
+                                                <p className="text-white text-xs font-bold">{property.location}</p>
+                                            </div>
+                                            <button className="text-[10px] font-black text-emerald-400 uppercase tracking-[0.2em] hover:text-emerald-300 transition-colors">
+                                                Enlarge View
+                                            </button>
+                                        </div>
+                                    </div>
+                                </div>
                             </div>
 
                             {/* Street View (Strictly Gated per Section 1.A) */}

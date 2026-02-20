@@ -41,8 +41,8 @@ export default function Footer() {
                     <div>
                         <h3 className="font-semibold text-gray-900 mb-6 text-sm uppercase tracking-wider">Resources</h3>
                         <ul className="space-y-4 text-sm text-gray-500">
-                            <li><Link href="/blog" className="hover:text-emerald-600 transition-colors">Buying Guide</Link></li>
-                            <li><Link href="/blog" className="hover:text-emerald-600 transition-colors">Market Insights</Link></li>
+                            <li><Link href="/how-it-works" className="hover:text-emerald-600 transition-colors">How it Works</Link></li>
+                            <li><Link href="/pricing" className="hover:text-emerald-600 transition-colors">Pricing</Link></li>
                             <li><Link href="/faq" className="hover:text-emerald-600 transition-colors">FAQs</Link></li>
                             <li><Link href="/contact" className="hover:text-emerald-600 transition-colors">Support</Link></li>
                         </ul>
