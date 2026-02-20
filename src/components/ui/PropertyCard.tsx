@@ -57,7 +57,7 @@ export default function PropertyCard({ property }: { property: Property }) {
                 </div>
 
                 {/* Specs Bar (Horizontal with dividers) */}
-                <div className="flex items-center gap-6 pt-5 border-t border-gray-50">
+                <div className="flex items-center gap-4 sm:gap-6 pt-5 border-t border-gray-50">
                     <div className="flex items-center gap-2 text-gray-400">
                         <Bed className="w-5 h-5" />
                         <span className="text-sm font-bold">{property.beds}</span>
