@@ -211,7 +211,7 @@ export default function AboutPage() {
                                     { label: "Response", basic: "Slow", pro: "Fast" },
                                     { label: "Competition", basic: "High", pro: "Limited" },
                                     { label: "Support", basic: "None", pro: "Full" },
-                                    { label: "Commission", basic: "Unclear", pro: "Fixed 10%" },
+                                    { label: "Commission", basic: "Unclear", pro: "Transparent" },
                                     { label: "Risk", basic: "High", pro: "Low" },
                                     { label: "Freshness", basic: "Not guaranteed", pro: "Confirmed" },
                                 ].map((row, i) => (

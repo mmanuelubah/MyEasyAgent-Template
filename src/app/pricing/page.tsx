@@ -77,7 +77,7 @@ export default function Pricing() {
                                 {[
                                     "Priority notifications (30m early)",
                                     "5 Physical property inspections",
-                                    "Fixed 10% Agent Commission",
+                                    "Transparent Agent Commission",
                                     "Priority Handler / Support",
                                     "Verified-Only Listings",
                                     "1st Inspection completely FREE"
@@ -116,7 +116,7 @@ export default function Pricing() {
                                     { name: "Property Notifications", free: "Standard", premium: "Priority (30m Early)" },
                                     { name: "Inspection Limit", free: "N/A", premium: "5 per Pass" },
                                     { name: "Inspection Cost", free: "Varies", premium: "₦0 (1st) / ₦2,000 (Others)" },
-                                    { name: "Commission Rate", free: "Negotiable (Often 15-20%)", premium: "Fixed at 10%" },
+                                    { name: "Commission Rate", free: "Negotiable (Often 15-20%)", premium: "Transparent & Negotiable" },
                                     { name: "Direct Agent Access", free: "Limited", premium: "Priority Line" },
                                     { name: "Legal Documentation", free: "Available", premium: "Review Included" },
                                     { name: "Support Level", free: "Help Center", premium: "Dedicated Handler" }
@@ -154,8 +154,8 @@ export default function Pricing() {
                                 a: "The ₦2,000 covers the agent's transportation costs to meet you at the property. This goes directly to the agent via the platform."
                             },
                             {
-                                q: "Why is commission fixed at 10%?",
-                                a: "To protect HuntSmart Pass users from surprise fees. The 10% of annual rent is standard and locked for all platform-facilitated deals."
+                                q: "How are agent commissions handled?",
+                                a: "While we strive to eliminate unnecessary middlemen, commissions are negotiated directly between you and the agent. We enforce transparency so there are no surprise fees."
                             }
                         ].map((faq, i) => (
                             <div key={i} className="bg-white p-10 rounded-[2.5rem] border border-gray-100 shadow-xl shadow-gray-200/50">

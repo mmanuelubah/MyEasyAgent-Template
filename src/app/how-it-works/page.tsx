@@ -95,7 +95,7 @@ export default function HowItWorks() {
                                 {[
                                     { title: "Priority Notifications", text: "Get alerts 30 minutes before listings go public. Be the first to see and book new properties." },
                                     { title: "5 Property Inspections", text: "Includes 1 FREE inspection + 4 more at ₦2,000 each. The fee goes directly to the agent for transport." },
-                                    { title: "Fixed 10% Commission", text: "No surprise fees. Agent commission is locked at 10% of annual rent for all platform deals." },
+                                    { title: "Transparent Fees", text: "No hidden costs. Agent commission is negotiated directly between you and the agent for all platform deals." },
                                     { title: "Priority Handler", text: "Dedicated support and 4-hour agent response guarantee (for HuntSmart requests)." }
                                 ].map((feature, i) => (
                                     <div key={i} className="flex gap-4">

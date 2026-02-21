@@ -30,7 +30,7 @@ const features = [
     },
     {
         title: "Less Spending",
-        description: "Stop wasting money on endless inspections. With fixed 10% commissions and zero hidden fees, you save more with every deal.",
+        description: "Stop wasting money on endless inspections. By reducing middlemen and prioritizing transparency, you save more with every deal.",
         icon: Wallet,
         color: "bg-red-50 text-red-600",
     },

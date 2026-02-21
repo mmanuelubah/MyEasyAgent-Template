@@ -849,7 +849,7 @@ export default function ProfilePage() {
                         />
                         <div>
                             <p className="font-bold text-gray-900">Non-Bypassing Agreement</p>
-                            <p className="text-sm text-gray-500 mt-1 leading-relaxed">I pledge to use the platform for the entire deal and not bypass MyEasyAgent to sideline the system.</p>
+                            <p className="text-sm text-gray-500 mt-1 leading-relaxed">I pledge to use the platform for the entire deal and not bypass MyEasyAgent. I also understand that while MyEasyAgent actively reduces middlemen, they cannot guarantee all agents sticking to a 10% commission fee.</p>
                         </div>
                     </label>
                 </div>
