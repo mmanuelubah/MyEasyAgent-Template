@@ -7,9 +7,12 @@ interface PaymentModalProps {
     onSuccess: () => void;
     onClose: () => void;
     amount: number;
+    title?: string;
+    description?: string;
+    successMessage?: string;
 }
 
-export default function PaymentModal({ onSuccess, onClose, amount }: PaymentModalProps) {
+export default function PaymentModal({ onSuccess, onClose, amount, title = "Payment Simulation", description, successMessage = "Payment Confirmed!" }: PaymentModalProps) {
     const [step, setStep] = useState<'details' | 'processing' | 'success'>('details');
 
     const handlePay = () => {
@@ -37,8 +40,8 @@ export default function PaymentModal({ onSuccess, onClose, amount }: PaymentModa
                             <CreditCard className="w-8 h-8" />
                         </div>
                         <div className="text-center">
-                            <h2 className="text-2xl font-black text-gray-900">Payment Simulation</h2>
-                            <p className="text-gray-500 text-sm mt-1">Upgrade to HuntSmart Pass for ₦{amount.toLocaleString()}</p>
+                            <h2 className="text-2xl font-black text-gray-900">{title}</h2>
+                            <p className="text-gray-500 text-sm mt-1">{description ?? `Paying ₦${amount.toLocaleString()}`}</p>
                         </div>
 
                         <div className="space-y-4">
@@ -55,7 +58,7 @@ export default function PaymentModal({ onSuccess, onClose, amount }: PaymentModa
                             <div className="flex items-start gap-3 bg-blue-50 p-4 rounded-2xl border border-blue-100">
                                 <ShieldCheck className="w-5 h-5 text-blue-600 shrink-0 mt-0.5" />
                                 <p className="text-[10px] text-blue-900 leading-tight font-medium">
-                                    This is a secure simulation. No real funds will be deducted. Clicking "Paid" will grant you full HuntSmart access across the platform.
+                                    This is a secure simulation. No real funds will be deducted.
                                 </p>
                             </div>
                         </div>
@@ -86,7 +89,7 @@ export default function PaymentModal({ onSuccess, onClose, amount }: PaymentModa
                         </div>
                         <div>
                             <h2 className="text-2xl font-black text-gray-900">Payment Successful!</h2>
-                            <p className="text-emerald-600 font-bold uppercase tracking-widest text-[10px] mt-1">HuntSmart Status Activated</p>
+                            <p className="text-emerald-600 font-bold uppercase tracking-widest text-[10px] mt-1">{successMessage}</p>
                         </div>
                     </div>
                 )}

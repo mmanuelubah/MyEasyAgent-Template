@@ -8,6 +8,7 @@ import {
 } from "lucide-react";
 import Image from "next/image";
 import Link from "next/link";
+import HuntSmartPaymentButton from "@/components/common/HuntSmartPaymentButton";
 import { useState } from "react";
 
 /**
@@ -191,9 +192,9 @@ export default function AboutPage() {
                                 ))}
                             </div>
 
-                            <Link href="/dashboard/client" className="inline-flex items-center gap-2 bg-emerald-500 text-emerald-950 px-8 py-4 rounded-2xl font-bold hover:bg-emerald-400 transition-all">
+                            <HuntSmartPaymentButton className="inline-flex items-center gap-2 bg-emerald-500 text-emerald-950 px-8 py-4 rounded-2xl font-bold hover:bg-emerald-400 transition-all">
                                 Get Pass - ₦15,000 <ArrowRight className="w-5 h-5" />
-                            </Link>
+                            </HuntSmartPaymentButton>
                         </div>
 
                         {/* Comparison Table */}

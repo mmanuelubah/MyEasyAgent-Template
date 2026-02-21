@@ -43,6 +43,7 @@ export default function PropertyDetailPage() {
     const [agreedToContact, setAgreedToContact] = useState(false);
     const [bookingCode, setBookingCode] = useState<string | null>(null);
     const [isBookingConfirmed, setIsBookingConfirmed] = useState(false);
+    const [showCommitmentFeeModal, setShowCommitmentFeeModal] = useState(false);
 
     if (!property) {
         return (
@@ -485,10 +486,14 @@ export default function PropertyDetailPage() {
                                                 <button
                                                     disabled={!bookingDate || !bookingTime || !agreedToPolicy || !agreedToContact}
                                                     onClick={() => {
-                                                        const randomCode = `MEA-${Math.random().toString(36).substring(2, 6).toUpperCase()}`;
-                                                        setBookingCode(randomCode);
-                                                        setIsBookingConfirmed(true);
-                                                        setFreeInspectionUsed(true);
+                                                        if (freeInspectionUsed) {
+                                                            setShowCommitmentFeeModal(true);
+                                                        } else {
+                                                            const randomCode = `MEA-${Math.random().toString(36).substring(2, 6).toUpperCase()}`;
+                                                            setBookingCode(randomCode);
+                                                            setIsBookingConfirmed(true);
+                                                            setFreeInspectionUsed(true);
+                                                        }
                                                     }}
                                                     className="w-full bg-emerald-600 text-white py-4 rounded-2xl font-bold hover:bg-emerald-700 transition-all shadow-lg shadow-emerald-200 disabled:opacity-50 disabled:cursor-not-allowed"
                                                 >
@@ -584,6 +589,23 @@ export default function PropertyDetailPage() {
                         </div>
                     </div>
                 </div>
+            )}
+
+            {/* Commitment Fee Payment Modal */}
+            {showCommitmentFeeModal && (
+                <PaymentModal
+                    amount={2500}
+                    title="Commitment Fee"
+                    description="₦2,500 Mobilization Fee — ₦2,000 to Agent + ₦500 Platform"
+                    successMessage="Booking Confirmed — Inspection Scheduled"
+                    onClose={() => setShowCommitmentFeeModal(false)}
+                    onSuccess={() => {
+                        const randomCode = `MEA-${Math.random().toString(36).substring(2, 6).toUpperCase()}`;
+                        setBookingCode(randomCode);
+                        setIsBookingConfirmed(true);
+                        setShowCommitmentFeeModal(false);
+                    }}
+                />
             )}
         </div>
     );

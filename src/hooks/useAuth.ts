@@ -12,6 +12,8 @@ interface User {
     phone?: string;
     isProfileComplete?: boolean;
     pledgeAccepted?: boolean;
+    hasHuntSmartPass?: boolean;
+    huntSmartTokens?: number;
     personalDetails?: any;
 }
 

@@ -2,6 +2,7 @@
 
 import { Check, CheckCircle2, Crown, ShieldCheck, Zap, Mail, MessageCircle, HelpCircle, ArrowRight } from "lucide-react";
 import Link from "next/link";
+import HuntSmartPaymentButton from "@/components/common/HuntSmartPaymentButton";
 import { useState } from "react";
 
 export default function Pricing() {
@@ -89,9 +90,9 @@ export default function Pricing() {
                             </ul>
                         </div>
 
-                        <Link href="/register?plan=huntsmart" className="w-full bg-white text-emerald-900 py-5 rounded-2xl font-black text-center hover:bg-emerald-50 transition-all shadow-xl">
+                        <HuntSmartPaymentButton className="w-full bg-white text-emerald-900 py-5 rounded-2xl font-black text-center hover:bg-emerald-50 transition-all shadow-xl">
                             Get HuntSmart Pass
-                        </Link>
+                        </HuntSmartPaymentButton>
                     </div>
                 </div>
 
@@ -177,9 +178,9 @@ export default function Pricing() {
                             Join thousands of Lagosians who found their perfect property with HuntSmart Pass.
                         </p>
                         <div className="flex flex-col sm:flex-row gap-4 justify-center">
-                            <Link href="/register?plan=huntsmart" className="bg-white text-gray-900 px-12 py-5 rounded-2xl font-black hover:bg-gray-100 transition-all shadow-2xl">
+                            <HuntSmartPaymentButton className="bg-white text-gray-900 px-12 py-5 rounded-2xl font-black hover:bg-gray-100 transition-all shadow-2xl">
                                 Get HuntSmart Pass
-                            </Link>
+                            </HuntSmartPaymentButton>
                             <Link href="/about" className="bg-white/10 text-white border-2 border-white/20 backdrop-blur-md px-12 py-5 rounded-2xl font-black hover:bg-white/20 transition-all">
                                 Learn More
                             </Link>

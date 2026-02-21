@@ -5,6 +5,7 @@ import {
     Upload, Users, Info, X, Clock, AlertCircle, ArrowRight
 } from "lucide-react";
 import Link from "next/link";
+import HuntSmartPaymentButton from "@/components/common/HuntSmartPaymentButton";
 
 export default function HowItWorks() {
     return (
@@ -255,9 +256,9 @@ export default function HowItWorks() {
                         <Link href="/properties" className="bg-emerald-600 text-white px-12 py-5 rounded-2xl font-black hover:bg-emerald-700 transition-all shadow-lg shadow-emerald-200">
                             Browse Properties
                         </Link>
-                        <Link href="/pricing" className="bg-white text-gray-900 border-2 border-gray-100 px-12 py-5 rounded-2xl font-black hover:border-emerald-600 transition-all">
+                        <HuntSmartPaymentButton className="bg-white text-gray-900 border-2 border-gray-100 px-12 py-5 rounded-2xl font-black hover:border-emerald-600 transition-all">
                             Get HuntSmart Pass
-                        </Link>
+                        </HuntSmartPaymentButton>
                     </div>
                 </section>
             </div>

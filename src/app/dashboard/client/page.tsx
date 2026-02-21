@@ -26,15 +26,17 @@ export default function ClientDashboard() {
     const { isHuntSmartActive, setHuntSmart } = useHuntSmart();
     const savedProperties = properties.slice(0, 3);
 
-    // Mock data
+    // Mock data — inspections with various booking states (per PAYMENT_LOGIC.md)
+    const [inspections, setInspections] = useState([
+        { id: 1, property: properties[0], date: '2026-02-25', time: '10:00 AM', agent: 'Oluwaseun Adeyemi', status: 'Scheduled' as const, hoursUntil: 72 },
+        { id: 2, property: properties[1], date: '2026-02-21', time: '2:00 PM', agent: 'Chioma Nwosu', status: 'AgentCancelled' as const, hoursUntil: 0 },
+        { id: 3, property: properties[2 % properties.length], date: '2026-02-21', time: '5:00 PM', agent: 'Ade Williams', status: 'Locked' as const, hoursUntil: 8 },
+        { id: 4, property: properties[0], date: '2026-02-20', time: '11:00 AM', agent: 'Fatima Al-Hassan', status: 'Completed' as const, hoursUntil: 0 },
+    ]);
     const creditsRemaining = isHuntSmartActive ? 4 : 0;
     const totalCredits = 5;
     const inspectionCredits = isHuntSmartActive ? 1 : 0;
     const daysUntilExpiry = 28;
-    const upcomingInspections = [
-        { id: 1, property: properties[0], date: '2026-02-15', time: '10:00 AM', agent: 'Oluwaseun Adeyemi', status: 'Scheduled' },
-        { id: 2, property: properties[1], date: '2026-02-18', time: '2:00 PM', agent: 'Chioma Nwosu', status: 'Cancelled' } // Section 5: Agent cancelled
-    ];
 
     return (
         <div className="bg-gray-50 min-h-screen">
@@ -240,88 +242,89 @@ export default function ClientDashboard() {
                             <div>
                                 <h2 className="text-2xl font-bold text-gray-900 mb-6">Your Inspections</h2>
                                 <div className="space-y-4">
-                                    {upcomingInspections.map((inspection) => {
-                                        const isCancelled = inspection.status === 'Cancelled';
-                                        const isSessionActive = inspection.status === 'Scheduled'; // Simplified
+                                    {inspections.map((inspection) => {
+                                        const isScheduled = inspection.status === 'Scheduled';
+                                        const isLocked = inspection.status === 'Locked';
+                                        const isAgentCancelled = inspection.status === 'AgentCancelled';
+                                        const isCompleted = inspection.status === 'Completed';
+
+                                        const statusBadge = () => {
+                                            if (isScheduled) return <span className="text-[10px] font-black px-2 py-0.5 rounded-full uppercase bg-emerald-100 text-emerald-700 tracking-widest">Scheduled</span>;
+                                            if (isLocked) return <span className="text-[10px] font-black px-2 py-0.5 rounded-full uppercase bg-amber-100 text-amber-700 tracking-widest flex items-center gap-1"><Lock className="w-2.5 h-2.5" /> Locked (≤24h)</span>;
+                                            if (isAgentCancelled) return <span className="text-[10px] font-black px-2 py-0.5 rounded-full uppercase bg-red-100 text-red-700 tracking-widest">Agent Cancelled</span>;
+                                            if (isCompleted) return <span className="text-[10px] font-black px-2 py-0.5 rounded-full uppercase bg-blue-100 text-blue-700 tracking-widest">Completed</span>;
+                                        };
+
                                         return (
-                                            <div key={inspection.id} className={`bg-gray-50 rounded-[2.5rem] p-8 border border-gray-100 relative overflow-hidden group ${isCancelled ? 'opacity-75 grayscale-[0.5]' : ''}`}>
-                                                {isSessionActive && !isCancelled && (
-                                                    <div className="absolute top-0 left-0 w-1 h-full bg-emerald-500 animate-pulse" />
-                                                )}
-                                                <div className="flex flex-col md:flex-row gap-8">
-                                                    <div className="relative w-full md:w-40 h-40 rounded-[2rem] overflow-hidden shrink-0 border-4 border-white shadow-sm">
+                                            <div key={inspection.id} className={`bg-white rounded-[2.5rem] p-8 border shadow-sm ${isLocked ? 'border-amber-100' : isAgentCancelled ? 'border-red-100' : 'border-gray-100'}`}>
+                                                <div className="flex flex-col md:flex-row gap-6">
+                                                    <div className="relative w-full md:w-36 h-36 rounded-[2rem] overflow-hidden shrink-0 border-4 border-white shadow-sm">
                                                         <Image src={inspection.property.images[0]} alt={inspection.property.title} fill className="object-cover" />
                                                     </div>
                                                     <div className="flex-1">
-                                                        <div className="flex items-center gap-2 mb-2">
-                                                            <span className={`text-[10px] font-black px-2 py-0.5 rounded-full uppercase tracking-widest ${isCancelled ? 'bg-red-100 text-red-600' :
-                                                                isSessionActive ? 'bg-emerald-100 text-emerald-700 animate-pulse' : 'bg-blue-100 text-blue-700'
-                                                                }`}>
-                                                                {isCancelled ? 'Agent Cancelled' : isSessionActive ? 'Inspection In Progress' : 'Scheduled'}
-                                                            </span>
-                                                            <span className="text-[10px] font-bold text-gray-400">ID: B-2026-XP92</span>
-                                                        </div>
+                                                        <div className="flex items-center gap-2 mb-2">{statusBadge()}<span className="text-[10px] font-bold text-gray-400">ID: MEA-{String(inspection.id).padStart(4, '0')}</span></div>
                                                         <h3 className="font-black text-xl text-gray-900 mb-1">{inspection.property.title}</h3>
-                                                        <p className="text-gray-500 text-sm mb-6 max-w-md">{inspection.property.location}</p>
-
-                                                        <div className="grid grid-cols-2 gap-6">
-                                                            <div className="flex items-center gap-3">
-                                                                <div className="w-10 h-10 bg-white rounded-xl flex items-center justify-center shadow-sm text-emerald-600">
-                                                                    <Calendar className="w-5 h-5" />
-                                                                </div>
-                                                                <div>
-                                                                    <p className="text-[10px] text-gray-400 font-bold uppercase">Date</p>
-                                                                    <p className="text-sm font-black text-gray-900">{inspection.date}</p>
-                                                                </div>
+                                                        <p className="text-gray-500 text-sm mb-4">{inspection.property.location}</p>
+                                                        <div className="grid grid-cols-2 gap-4 text-sm">
+                                                            <div className="flex items-center gap-2">
+                                                                <Calendar className="w-4 h-4 text-emerald-600" />
+                                                                <span className="font-bold text-gray-900">{inspection.date}</span>
                                                             </div>
-                                                            <div className="flex items-center gap-3">
-                                                                <div className="w-10 h-10 bg-white rounded-xl flex items-center justify-center shadow-sm text-emerald-600">
-                                                                    <Clock className="w-5 h-5" />
-                                                                </div>
-                                                                <div>
-                                                                    <p className="text-[10px] text-gray-400 font-bold uppercase">Time</p>
-                                                                    <p className="text-sm font-black text-gray-900">{inspection.time}</p>
-                                                                </div>
+                                                            <div className="flex items-center gap-2">
+                                                                <Clock className="w-4 h-4 text-emerald-600" />
+                                                                <span className="font-bold text-gray-900">{inspection.time}</span>
                                                             </div>
                                                         </div>
                                                     </div>
-                                                    <div className="flex flex-col justify-center gap-3 min-w-[200px]">
-                                                        {isCancelled ? (
-                                                            <div className="space-y-4">
-                                                                <div className="bg-red-50 p-4 rounded-2xl border border-red-100 text-center">
-                                                                    <p className="text-[10px] font-black text-red-600 uppercase tracking-widest mb-1">Status</p>
-                                                                    <p className="text-sm font-black text-red-900 leading-tight">Agent Cancelled Booking</p>
+                                                    <div className="flex flex-col gap-3 justify-center min-w-[180px]">
+                                                        {isScheduled && (
+                                                            <>
+                                                                <div className="bg-emerald-50 p-3 rounded-2xl border border-emerald-100 text-center">
+                                                                    <p className="text-[10px] font-black text-emerald-600 uppercase tracking-widest">Free to cancel</p>
+                                                                    <p className="text-xs text-emerald-800 font-bold mt-1">{inspection.hoursUntil}h remaining</p>
+                                                                </div>
+                                                                <button
+                                                                    onClick={() => {
+                                                                        setInspections(prev => prev.map(i => i.id === inspection.id ? { ...i, status: 'Cancelled' as any } : i));
+                                                                        setShowRefundForm(true);
+                                                                    }}
+                                                                    className="w-full px-4 py-3 border border-red-200 text-red-600 rounded-2xl font-bold text-xs hover:bg-red-50 transition-all"
+                                                                >
+                                                                    Cancel Booking (Refund ₦2,500)
+                                                                </button>
+                                                            </>
+                                                        )}
+                                                        {isLocked && (
+                                                            <div className="space-y-3">
+                                                                <div className="bg-amber-50 p-3 rounded-2xl border border-amber-100 text-center">
+                                                                    <p className="text-[10px] font-black text-amber-700 uppercase tracking-widest">Locked — No Refund</p>
+                                                                    <p className="text-[10px] text-amber-700 mt-1">Inspection in {inspection.hoursUntil}h. You cannot cancel.</p>
+                                                                </div>
+                                                                <button className="w-full px-4 py-3 bg-gray-100 text-gray-400 rounded-2xl font-bold text-xs cursor-not-allowed" disabled>
+                                                                    Cancel Locked
+                                                                </button>
+                                                            </div>
+                                                        )}
+                                                        {isAgentCancelled && (
+                                                            <>
+                                                                <div className="bg-red-50 p-3 rounded-2xl border border-red-100 text-center">
+                                                                    <p className="text-[10px] font-black text-red-600 uppercase tracking-widest">Agent Cancelled</p>
+                                                                    <p className="text-[10px] text-red-800 font-medium mt-1">Full refund available</p>
                                                                 </div>
                                                                 <button
                                                                     onClick={() => setShowRefundForm(true)}
-                                                                    className="w-full px-6 py-4 bg-emerald-600 text-white rounded-2xl font-black text-sm hover:bg-emerald-700 transition-all shadow-lg flex items-center justify-center gap-2"
+                                                                    className="w-full px-4 py-3 bg-emerald-600 text-white rounded-2xl font-black text-xs hover:bg-emerald-700 transition-all shadow-lg shadow-emerald-100 flex items-center justify-center gap-2"
                                                                 >
-                                                                    <ShieldCheck className="w-5 h-5" />
-                                                                    Claim My Refund
-                                                                </button>
-                                                                <p className="text-[9px] text-gray-400 text-center px-4 font-bold">₦2,500 Mobilization Fee Refundable</p>
-                                                            </div>
-                                                        ) : isSessionActive ? (
-                                                            <div className="space-y-4">
-                                                                <div className="bg-white p-4 rounded-2xl border border-gray-100 text-center">
-                                                                    <p className="text-[10px] font-black text-emerald-600 uppercase tracking-widest mb-1">Session Countdown</p>
-                                                                    <p className="text-xl font-mono font-black text-gray-900">24:12</p>
-                                                                </div>
-                                                                <button className="w-full px-6 py-4 bg-emerald-600 text-white rounded-2xl font-black text-sm hover:bg-emerald-700 transition-all shadow-lg shadow-emerald-100 flex items-center justify-center gap-2">
-                                                                    <CheckCircle2 className="w-5 h-5" />
-                                                                    Confirm Completion
-                                                                </button>
-                                                                <p className="text-[9px] text-gray-400 text-center px-4">Required: Provide Booking Code to Agent after inspection.</p>
-                                                            </div>
-                                                        ) : (
-                                                            <>
-                                                                <button className="px-6 py-4 bg-white text-gray-900 border border-gray-100 rounded-2xl font-black text-sm hover:shadow-md transition-all">
-                                                                    View Instructions
-                                                                </button>
-                                                                <button className="px-6 py-4 text-gray-400 font-bold text-sm hover:text-red-500 transition-all">
-                                                                    Cancel Booking
+                                                                    <ShieldCheck className="w-4 h-4" /> Claim ₦2,500 Refund
                                                                 </button>
                                                             </>
+                                                        )}
+                                                        {isCompleted && (
+                                                            <div className="bg-blue-50 p-3 rounded-2xl border border-blue-100 text-center">
+                                                                <CheckCircle2 className="w-6 h-6 text-blue-600 mx-auto mb-1" />
+                                                                <p className="text-[10px] font-black text-blue-700 uppercase tracking-widest">Inspection Complete</p>
+                                                                <p className="text-[10px] text-blue-600 mt-1">Booking code submitted</p>
+                                                            </div>
                                                         )}
                                                     </div>
                                                 </div>
