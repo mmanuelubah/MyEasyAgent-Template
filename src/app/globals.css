@@ -11,4 +11,12 @@
 body {
     color: rgb(var(--foreground-rgb));
     background: white;
+    -webkit-tap-highlight-color: transparent;
+    touch-action: manipulation;
+}
+
+@layer utilities {
+    .active-scale {
+        @apply active:scale-[0.98] transition-transform duration-100;
+    }
 }

@@ -52,19 +52,19 @@ export default function Navbar() {
                     {/* Desktop Nav */}
                     <div className="hidden md:flex items-center space-x-8">
                         <div className="flex gap-6">
-                            <Link href="/properties" className="text-sm font-semibold text-gray-600 hover:text-emerald-600 transition-colors">Rent</Link>
-                            <Link href="/properties" className="text-sm font-semibold text-gray-600 hover:text-emerald-600 transition-colors">Buy</Link>
-                            <Link href="/how-it-works" className="text-sm font-semibold text-gray-600 hover:text-emerald-600 transition-colors">How it Works</Link>
-                            <Link href="/pricing" className="text-sm font-semibold text-gray-600 hover:text-emerald-600 transition-colors">Pricing</Link>
-                            <Link href="/properties" className="text-sm font-semibold text-gray-600 hover:text-emerald-600 transition-colors">Lease</Link>
-                            <Link href="/properties" className="text-sm font-semibold text-gray-600 hover:text-emerald-600 transition-colors">Commercial</Link>
+                            <Link href="/properties" className="text-sm font-semibold text-gray-600 hover:text-emerald-600 transition-colors active-scale">Rent</Link>
+                            <Link href="/properties" className="text-sm font-semibold text-gray-600 hover:text-emerald-600 transition-colors active-scale">Buy</Link>
+                            <Link href="/how-it-works" className="text-sm font-semibold text-gray-600 hover:text-emerald-600 transition-colors active-scale">How it Works</Link>
+                            <Link href="/pricing" className="text-sm font-semibold text-gray-600 hover:text-emerald-600 transition-colors active-scale">Pricing</Link>
+                            <Link href="/properties" className="text-sm font-semibold text-gray-600 hover:text-emerald-600 transition-colors active-scale">Lease</Link>
+                            <Link href="/properties" className="text-sm font-semibold text-gray-600 hover:text-emerald-600 transition-colors active-scale">Commercial</Link>
                         </div>
 
                         <div className="h-4 w-px bg-gray-200" />
 
                         <div className="flex items-center gap-6">
                             {user?.role === 'agent' && (
-                                <Link href="/properties" className="text-sm font-semibold text-gray-600 hover:text-emerald-600">List your Property</Link>
+                                <Link href="/create-listing" className="text-sm font-semibold text-gray-600 hover:text-emerald-600">List your Property</Link>
                             )}
                             <button className="text-gray-400 hover:text-emerald-600 transition-colors">
                                 <Bell className="w-5 h-5" />
@@ -73,7 +73,7 @@ export default function Navbar() {
                             {!isAuthenticated ? (
                                 <Link
                                     href="/register"
-                                    className="bg-emerald-600 hover:bg-emerald-700 text-white px-6 py-2.5 rounded-full text-sm font-bold transition-all shadow-lg shadow-emerald-100"
+                                    className="bg-emerald-600 hover:bg-emerald-700 text-white px-6 py-2.5 rounded-full text-sm font-bold transition-all shadow-lg shadow-emerald-100 active-scale"
                                 >
                                     Join MyEasyAgent
                                 </Link>
@@ -174,14 +174,14 @@ export default function Navbar() {
             {isOpen && (
                 <div className="md:hidden bg-white border-t border-gray-100 py-6 px-4 space-y-4 animate-in slide-in-from-top duration-300">
                     <div className="grid grid-cols-2 gap-3 pb-4">
-                        <Link href="/properties" className="flex items-center justify-center py-3 bg-gray-50 rounded-xl font-bold text-sm">Rent</Link>
-                        <Link href="/properties" className="flex items-center justify-center py-3 bg-gray-50 rounded-xl font-bold text-sm">Buy</Link>
-                        <Link href="/how-it-works" className="flex items-center justify-center py-3 bg-gray-50 rounded-xl font-bold text-sm">How it Works</Link>
-                        <Link href="/pricing" className="flex items-center justify-center py-3 bg-gray-50 rounded-xl font-bold text-sm">Pricing</Link>
+                        <Link href="/properties" className="flex items-center justify-center py-3 bg-gray-50 rounded-xl font-bold text-sm active-scale">Rent</Link>
+                        <Link href="/properties" className="flex items-center justify-center py-3 bg-gray-50 rounded-xl font-bold text-sm active-scale">Buy</Link>
+                        <Link href="/how-it-works" className="flex items-center justify-center py-3 bg-gray-50 rounded-xl font-bold text-sm active-scale">How it Works</Link>
+                        <Link href="/pricing" className="flex items-center justify-center py-3 bg-gray-50 rounded-xl font-bold text-sm active-scale">Pricing</Link>
                     </div>
 
                     {!isAuthenticated ? (
-                        <Link href="/register" className="block w-full bg-emerald-600 text-white text-center py-4 rounded-xl font-black">Join MyEasyAgent</Link>
+                        <Link href="/register" className="block w-full bg-emerald-600 text-white text-center py-4 rounded-xl font-black active-scale">Join MyEasyAgent</Link>
                     ) : (
                         <div className="space-y-4 pt-4 border-t border-gray-100">
                             <div className="flex items-center gap-3 mb-6">

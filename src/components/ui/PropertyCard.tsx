@@ -4,7 +4,7 @@ import Link from "next/link";
 
 export default function PropertyCard({ property }: { property: Property }) {
     return (
-        <div className="group bg-white rounded-[2.5rem] overflow-hidden border border-gray-100 transition-all duration-500 hover:shadow-2xl hover:-translate-y-2">
+        <div className="group relative bg-white rounded-[2.5rem] overflow-hidden border border-gray-100 transition-all duration-500 hover:shadow-2xl hover:-translate-y-2">
             {/* Image Container */}
             <div className="relative h-72 overflow-hidden">
                 <img
@@ -73,7 +73,7 @@ export default function PropertyCard({ property }: { property: Property }) {
                 </div>
 
                 {/* Clickable Overlay */}
-                <Link href={`/properties/${property.id}`} className="absolute inset-0 z-10" aria-label="View property details" />
+                <Link href={`/properties/${property.id}`} className="absolute inset-0 z-10" aria-label="View property details"></Link>
             </div>
         </div>
     );

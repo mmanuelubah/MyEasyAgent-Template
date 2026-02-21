@@ -35,7 +35,18 @@ If you see the error `sh: line 1: next build: command not found`, it usually mea
 5.  **CRITICAL**: Make sure there are **NO single or double quotes** around the command (e.g., do NOT use `'next build'` or `"next build"`).
 6.  Click **Save** and click **Redeploy** from the "Deployments" tab.
 
-## 6. Team Access
+## 6. Troubleshooting: "Output Directory 'next' was not found"
+If you see an error saying `The Next.js output directory "next" was not found at "/vercel/path0/next"`, it means Vercel's output directory setting is misconfigured.
+
+### How to Fix:
+1.  Go to your project in the **Vercel Dashboard**.
+2.  Click on **Settings** > **General**.
+3.  Scroll down to **Build & Development Settings**.
+4.  Look at the **Output Directory** field.
+5.  **Toggle the "Override" switch OFF**. This will let Vercel use the default `.next` folder automatically.
+6.  Click **Save** and click **Redeploy** from the "Deployments" tab.
+
+## 7. Team Access
 To let team members see deployments:
 1.  In your Vercel Dashboard, go to the project **Settings** > **Members**.
 2.  Invite them via email or share the deployment URL.
