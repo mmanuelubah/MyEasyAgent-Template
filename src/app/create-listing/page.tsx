@@ -19,6 +19,10 @@ export default function CreateListing() {
     const [propertyType, setPropertyType] = useState("");
     const [inspectionAgreement, setInspectionAgreement] = useState<boolean | null>(null);
 
+    // Map & Premium State
+    const [address, setAddress] = useState("");
+    const [isPremium, setIsPremium] = useState(false);
+
     const sidebarSections = [
         { id: 'overview', title: 'Overview', steps: [1] },
         { id: 'location', title: 'Location', steps: [2, 3, 4, 5] },
@@ -248,37 +252,97 @@ export default function CreateListing() {
 
                         {/* Step 5 */}
                         {currentStep === 5 && (
-                            <div className="animate-in fade-in slide-in-from-bottom-4 duration-500 text-center max-w-2xl mx-auto">
+                            <div className="animate-in fade-in slide-in-from-bottom-4 duration-500 text-center max-w-4xl mx-auto w-full">
                                 <h1 className="text-[1.7rem] font-medium text-gray-900 mb-2">Let's Place Your Property on the Map</h1>
-                                <p className="text-[15px] text-gray-500 mb-8">Submit the exact location so buyers know exactly where to find it.</p>
+                                <p className="text-[15px] text-gray-500 mb-6">Submit the exact location so buyers know exactly where to find it.</p>
 
-                                <div className="max-w-[34rem] mx-auto">
-                                    <div className="w-full bg-white border border-gray-200 rounded-2xl p-3.5 flex items-center gap-3 mb-6 relative">
-                                        <MapPin className="w-4 h-4 text-gray-500 ml-1 shrink-0" />
-                                        <input type="text" placeholder="Enter your address" className="w-full outline-none text-gray-900 placeholder:text-gray-400 text-[15px]" />
+                                {/* Toggle for Demo Purposes */}
+                                <div className="flex justify-center mb-8">
+                                    <button
+                                        onClick={() => setIsPremium(!isPremium)}
+                                        className={`text-xs px-4 py-1.5 rounded-full border transition-colors font-medium ${isPremium ? 'bg-amber-100 border-amber-300 text-amber-700 shadow-inner' : 'bg-gray-50 border-gray-200 text-gray-500 hover:bg-gray-100'}`}
+                                    >
+                                        {isPremium ? "Demo: Premium Overview Enabled" : "Demo: Premium Overview Disabled"}
+                                    </button>
+                                </div>
+
+                                <div className="max-w-[48rem] mx-auto flex flex-col md:flex-row gap-6">
+                                    <div className="flex-1 flex flex-col">
+                                        <div className="w-full bg-white border border-gray-200 rounded-2xl p-3.5 flex items-center gap-3 mb-6 relative shadow-sm focus-within:border-[#0F5A3E] focus-within:ring-1 focus-within:ring-[#0F5A3E] transition-all">
+                                            <MapPin className="w-5 h-5 text-gray-400 ml-1 shrink-0" />
+                                            <input
+                                                type="text"
+                                                placeholder="Enter your exact address (e.g. 15 Admiralty Way, Lekki)"
+                                                className="w-full outline-none text-gray-900 placeholder:text-gray-400 text-[15px] font-medium"
+                                                value={address}
+                                                onChange={(e) => setAddress(e.target.value)}
+                                            />
+                                        </div>
+
+                                        <div className="h-[400px] w-full rounded-2xl border border-gray-200 overflow-hidden relative shadow-sm bg-gray-50">
+                                            {address.length > 3 ? (
+                                                <iframe
+                                                    width="100%"
+                                                    height="100%"
+                                                    frameBorder="0"
+                                                    scrolling="no"
+                                                    marginHeight={0}
+                                                    marginWidth={0}
+                                                    src={`https://maps.google.com/maps?q=${encodeURIComponent(address)}&t=m&z=15&ie=UTF8&iwloc=&output=embed`}
+                                                ></iframe>
+                                            ) : (
+                                                <div className="w-full h-full flex flex-col items-center justify-center text-gray-400">
+                                                    <MapPin className="w-12 h-12 mb-4 opacity-20" />
+                                                    <p className="font-medium text-sm">Type an address to view your location on the map.</p>
+                                                </div>
+                                            )}
+                                        </div>
                                     </div>
 
-                                    <div className="h-[400px] w-full bg-[#82D3E5] rounded-t-2xl border border-gray-200 flex items-center justify-center relative overflow-hidden group">
-                                        <div className="absolute inset-0 bg-blue-100/20" /> {/* Slight map texture placeholder */}
-                                        <div className={`w-12 h-12 ${bgGreen} rounded-full flex flex-col items-center justify-center shadow-lg relative z-10 cursor-grab`}>
-                                            <HomeIcon fill="white" className="text-white w-6 h-6" />
-                                            <div className={`absolute -bottom-2 w-0 h-0 border-l-[6px] border-r-[6px] border-t-[8px] border-transparent border-t-[#0F5A3E]`} />
+                                    {/* Premium Overview Sidebar */}
+                                    {isPremium && address.length > 5 && (
+                                        <div className="w-full md:w-[280px] bg-gradient-to-b from-[#FAF8F5] to-white border border-[#E8DCC4] rounded-2xl p-6 text-left shrink-0 animate-in fade-in slide-in-from-right-4 duration-500 shadow-md flex flex-col relative overflow-hidden">
+                                            <div className="absolute top-0 left-0 w-full h-1 bg-gradient-to-r from-amber-300 to-orange-400"></div>
+                                            <div className="flex items-center gap-2 mb-6 mt-1">
+                                                <div className="w-8 h-8 rounded-full bg-amber-100 flex items-center justify-center">
+                                                    <svg className="w-4 h-4 text-amber-600" viewBox="0 0 24 24" fill="currentColor"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"></polygon></svg>
+                                                </div>
+                                                <h3 className="font-bold text-gray-900 text-[15px]">Premium Overview</h3>
+                                            </div>
+
+                                            <div className="space-y-5 flex-1">
+                                                <div>
+                                                    <p className="text-[10px] font-bold text-[#A88C5A] uppercase tracking-widest mb-1.5">Neighborhood Safety</p>
+                                                    <div className="flex items-center gap-2">
+                                                        <div className="flex-1 h-2 bg-gray-100 rounded-full overflow-hidden border border-gray-200">
+                                                            <div className="w-[85%] h-full bg-[#0F5A3E] rounded-full"></div>
+                                                        </div>
+                                                        <span className="text-sm font-bold text-gray-900">85/100</span>
+                                                    </div>
+                                                </div>
+                                                <div className="pb-3 border-b border-[#F0E6D2]">
+                                                    <p className="text-[10px] font-bold text-[#A88C5A] uppercase tracking-widest mb-1">Avg. Property Value</p>
+                                                    <p className="font-extrabold text-gray-900 text-lg">₦120M - ₦150M</p>
+                                                    <p className="text-[11px] text-emerald-600 font-bold mt-0.5 flex items-center gap-1">
+                                                        <svg className="w-3 h-3" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="3"><path d="M12 19V5M5 12l7-7 7 7" /></svg>
+                                                        4.2% YoY Growth
+                                                    </p>
+                                                </div>
+                                                <div>
+                                                    <p className="text-[10px] font-bold text-[#A88C5A] uppercase tracking-widest mb-1.5">Demographics Snapshot</p>
+                                                    <p className="text-[13px] text-gray-700 font-medium leading-relaxed">Primarily working professionals and expatriates with high lifestyle demands.</p>
+                                                </div>
+                                                <div className="pt-2">
+                                                    <p className="text-[10px] font-bold text-[#A88C5A] uppercase tracking-widest mb-2">Nearby Amenities</p>
+                                                    <ul className="text-[13px] text-gray-800 space-y-2 font-medium">
+                                                        <li className="flex items-start gap-2"><Check className="w-3.5 h-3.5 text-amber-500 mt-0.5 shrink-0" /> 3 Top Tier Schools</li>
+                                                        <li className="flex items-start gap-2"><Check className="w-3.5 h-3.5 text-amber-500 mt-0.5 shrink-0" /> 2 Major Hospitals</li>
+                                                        <li className="flex items-start gap-2"><Check className="w-3.5 h-3.5 text-amber-500 mt-0.5 shrink-0" /> 5+ Supermarkets</li>
+                                                    </ul>
+                                                </div>
+                                            </div>
                                         </div>
-                                        <div className="absolute bottom-2 left-2 flex items-center gap-1 opacity-80">
-                                            <div className="font-bold text-sm tracking-tighter mix-blend-color-burn" style={{ color: '#4285F4' }}>G<span style={{ color: '#EA4335' }}>o</span><span style={{ color: '#FBBC05' }}>o</span><span style={{ color: '#4285F4' }}>g</span><span style={{ color: '#34A853' }}>l</span><span style={{ color: '#EA4335' }}>e</span></div>
-                                        </div>
-                                        <div className="absolute bottom-2 right-2 flex text-[10px] text-gray-700 font-bold items-center gap-2 mix-blend-color-burn opacity-70">
-                                            <span>Keyboard shortcuts</span>
-                                            <span>Map data ©2026</span>
-                                            <span>Terms</span>
-                                        </div>
-                                    </div>
-                                    <div className="bg-white border-x border-b border-gray-200 rounded-b-2xl p-3 flex justify-center text-xs font-medium text-gray-700">
-                                        <div className="flex items-center gap-2">
-                                            <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><path d="M5 9l4-4 4 4M9 5v14M19 15l-4 4-4-4M15 9v10" /></svg>
-                                            Move the pin to accurately mark the property's location on the map.
-                                        </div>
-                                    </div>
+                                    )}
                                 </div>
                             </div>
                         )}
